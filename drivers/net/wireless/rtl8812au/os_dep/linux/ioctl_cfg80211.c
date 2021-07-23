@@ -6138,14 +6138,6 @@ static int cfg80211_rtw_get_channel(struct wiphy *wiphy, struct wireless_dev *wd
 			RTW_INFO("%s dvobj null\n", __func__);
     		}
 	    	switch(pHalData->current_channel_bw){
-		case CHANNEL_WIDTH_5:
-                       width = NL80211_CHAN_WIDTH_5;
-                       center_freq = control_freq;
-                       break;
-		case CHANNEL_WIDTH_10:
-		       width = NL80211_CHAN_WIDTH_10;
-                       center_freq = control_freq;
-                       break;
 		case CHANNEL_WIDTH_20:
 			RTW_INFO("%s width 20\n", __func__);
 			width = NL80211_CHAN_WIDTH_20;
@@ -6160,38 +6152,9 @@ static int cfg80211_rtw_get_channel(struct wiphy *wiphy, struct wireless_dev *wd
 				center_freq = control_freq -10;
 			}
 			break;
-		case CHANNEL_WIDTH_80:
-			RTW_INFO("%s width 80\n", __func__);
-			width = NL80211_CHAN_WIDTH_80;
-			if(offset==HAL_PRIME_CHNL_OFFSET_LOWER){
-				center_freq = control_freq +30;
-			}else{
-				center_freq = control_freq -30;
-			}
-			break;
-		case CHANNEL_WIDTH_160:
-			RTW_INFO("%s width 160\n", __func__);
-			width = NL80211_CHAN_WIDTH_160;
-			if(offset == HAL_PRIME_CHNL_OFFSET_LOWER){
-				center_freq = control_freq +50;
-			}else{
-				center_freq = control_freq -50;
-			}
-			break;
-    		case CHANNEL_WIDTH_80_80:
-			RTW_INFO("%s width 80x80\n", __func__);
-			width = NL80211_CHAN_WIDTH_80P80;
-			if(offset==HAL_PRIME_CHNL_OFFSET_LOWER){
-				center_freq = control_freq +30;
-				center_freq2=center_freq+80;
-			}else{
-				center_freq = control_freq -30;
-				center_freq2=center_freq-80;
-			}
-			break;
     		case CHANNEL_WIDTH_MAX:
 			RTW_INFO("%s width max\n", __func__);
-			width = NL80211_CHAN_WIDTH_160;
+			width = NL80211_CHAN_WIDTH_40;
 			break;
 		}
 		chandef->chan = ieee80211_get_channel(wiphy, control_freq);
